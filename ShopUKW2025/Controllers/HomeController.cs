@@ -1,26 +1,34 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using ShopUKW2025.DAL;
 using ShopUKW2025.Models;
 
 namespace ShopUKW2025.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        FilmsContext db;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+		public HomeController(FilmsContext db)
+		{
+			this.db = db;
+		}
 
-        public IActionResult Index()
+		public IActionResult Index()
         {
-            return View();
+            var categories = db.Categories.ToList();
+
+            return View(categories);
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult FooterSites(string siteName)
+        {
+            return View(siteName, new List<Category>());
         }
 
     }

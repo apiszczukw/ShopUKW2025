@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Category>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Bootstrap 5 Website Example</title>
@@ -17,18 +19,13 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container-fluid">
             <ul class="navbar-nav">
+                @foreach (var category in Model)
+                {
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link" href="#">@category.Name</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
+                }
+               
             </ul>
         </div>
     </nav>
@@ -65,7 +62,10 @@
     </div>
 
     <div class="mt-5 p-4 bg-dark text-white text-center">
-        <p>Footer</p>
+            <a href="@Url.Action("FooterSites", "Home", new { siteName = "Omnie" })">O mnie</a>
+            <a href="@Url.Action("FooterSites", "Home", new { siteName = "MetodyPlatnosci" })">Metody płatności</a>
+            <a href="@Url.Action("FooterSites", "Home", new { siteName = "Regulamin" })">Regulamin</a>
+            <a href="@Url.Action("FooterSites", "Home", new { siteName = "Kontakt" })">Kontakt</a>
     </div>
 
 </body>
