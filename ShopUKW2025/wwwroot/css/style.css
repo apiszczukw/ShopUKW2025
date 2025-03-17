@@ -2,3 +2,13 @@
     height: 200px;
     background: #aaa;
 }
+
+#footer  a {
+    color: white;
+    margin-right: 2rem;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    color: gray;
+}

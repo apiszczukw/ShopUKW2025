@@ -21,14 +21,9 @@ namespace ShopUKW2025.Controllers
             return View(categories);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult FooterSites(string siteName)
         {
-            return View(siteName, new List<Category>());
+            return View(siteName);
         }
 
     }
