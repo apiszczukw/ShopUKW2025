@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Film>
+
+
+
+<div class="col-sm-4">
+
+<ul class="nav nav-pills flex-column">
+@foreach (var film in Model)
+    {
+        
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Details", "Films", new { filmId = film.FilmId })">@film.Title</a>
+    </li>
+
+    }
+</ul>
+</div>
