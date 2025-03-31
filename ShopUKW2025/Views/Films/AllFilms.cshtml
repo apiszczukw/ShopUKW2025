@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Film>
+
+
+<div class="container">
+    <div class="row g-4">
+        @foreach (var film in Model)
+        {
+            
+        <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+                <a href="@Url.Action("Details","Films", new { filmId = film.FilmId })"><img src="~/obrazki/@film.Poster" alt="Film @film.Poster" class="movie-poster" height="300px"></a>
+        </div>
+        }
+    </div>
+</div>

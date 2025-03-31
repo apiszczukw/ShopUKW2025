@@ -14,6 +14,12 @@ namespace ShopUKW2025.Controllers
 			this.db = db;
 		}
 
+        public IActionResult AllFilms()
+        {
+
+            return View(db.Films.ToList());
+        }
+
 		public IActionResult ProductList(string categoryName)
         {
             var category = db.Categories.Include("Films").Where(c => c.Name == categoryName).Single();

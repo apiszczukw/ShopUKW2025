@@ -17,7 +17,9 @@ namespace ShopUKW2025.Models
 
 		public decimal? Price { get; set; }
 
-		public int CategoryId { get; set; }
+        public string Poster { get; set; }
+
+        public int CategoryId { get; set; }
 
 		public Category Category { get; set; }
 	}
