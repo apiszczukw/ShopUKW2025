@@ -1,0 +1,38 @@
+﻿@model AddFilmViewModel
+
+
+@using(@Html.BeginForm("AddFilm", "Films", FormMethod.Post, new { enctype= "multipart/form-data" }))
+{
+<div class="mb-3">
+	@Html.LabelFor(m => m.NewFilm.Title, "Tytuł:", new { @class = "form-label" })
+	@Html.TextBoxFor(m => m.NewFilm.Title, new { @class = "form-control", @required = true })
+</div>
+<div class="mb-3">
+	@Html.LabelFor(m => m.NewFilm.Director, "Reżyser:", new { @class = "form-label" })
+	@Html.TextBoxFor(m => m.NewFilm.Director, new { @class = "form-control", @required = true })
+</div>
+<div class="mb-3">
+	@Html.LabelFor(m => m.NewFilm.Desc, "Opis:", new { @class = "form-label" })
+	@Html.TextAreaFor(m => m.NewFilm.Desc, new { @class = "form-control", @required = true })
+</div>
+<div class="mb-3">
+	@Html.LabelFor(m => m.NewFilm.Price, "Cena:", new { @class = "form-label" })
+	@Html.TextBoxFor(m => m.NewFilm.Price, new { @class = "form-control", @required = true, Type = "number" })
+</div>
+<div class="mb-3">
+	@Html.LabelFor(m => m.Poster, "Plakat:", new { @class = "form-label"})
+	@Html.TextBoxFor(m=>m.Poster, new { Type="file", @class="form-control" })
+</div>
+<div class="mb-3">
+	@foreach (var cat in Model.AllCategories)
+	{
+		@Html.RadioButtonFor(m => m.NewFilm.CategoryId, cat.CategoryId, new { @class = "form-check-input" })
+		@cat.Name
+		<br />
+	}
+</div>
+<div class="md-3">
+	<button type="submit" class="btn btn-secondary"> Dodaj </button>
+</div>
+}
+
