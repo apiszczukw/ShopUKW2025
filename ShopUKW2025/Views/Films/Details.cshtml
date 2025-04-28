@@ -16,6 +16,8 @@
 				<li>Cena: @Model.Price zł</li>
 				<li>Opis: @Model.Desc</li>
 			</ul>
+
+			<button class="btn btn-primary" onclick="window.location.href='@Url.Action("EditFilm", "Films", new { id = Model.FilmId })'">Edytuj</button>
 		</td>
 	</tr>
 </table>

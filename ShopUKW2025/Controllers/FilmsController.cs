@@ -72,5 +72,48 @@ namespace ShopUKW2025.Controllers
 
             return View(film);
         }
+
+        [HttpPost]
+        public IActionResult Search(string tekst)
+        {
+            var filmy = from f in db.Films select f;
+            ViewBag.Fraza = tekst;
+
+            if(!String.IsNullOrEmpty(tekst))
+            {
+                filmy = filmy.Where(f => f.Title.ToUpper().Contains(tekst.ToUpper()));
+                return View(filmy.ToList());
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult EditFilm(int id)
+        {
+            var film = db.Films.Find(id);
+
+            return View(film);
+        }
+
+        [HttpPost]
+        public IActionResult EditFilm(Film film)
+        {
+            var filmDB = db.Films.Find(film.FilmId);
+
+            if(filmDB != null)
+            {
+                filmDB.Title = film.Title;
+                filmDB.Director = film.Director;
+                filmDB.Price = film.Price;
+                filmDB.Desc = film.Desc;
+
+                db.Entry(filmDB).State = EntityState.Modified;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Details", new { filmId = filmDB.FilmId });
+        }
     }
 }

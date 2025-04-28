@@ -1,0 +1,30 @@
+﻿@model Film
+
+@using (Html.BeginForm("EditFilm", "Films", FormMethod.Post))
+{
+	@Html.HiddenFor(f=>f.CategoryId)
+	@Html.HiddenFor(f=>f.Poster)
+	@Html.HiddenFor(f=>f.FilmId)
+
+<table>
+	<tr>
+		<td>
+			@* <h2> @Model.Category.Name </h2> *@
+			@* @(await Component.InvokeAsync("SideMenu", new { categoryName = Model.Category.Name })) *@
+		</td>
+		<td>
+			<img src="~/obrazki/@Model.Poster" height="400px" />
+		</td>
+		<td>
+			<ul>
+					<li>Tytuł: @Html.TextBoxFor(f => f.Title, new { @class = "form-control" })</li>
+					<li>Reżyser: @Html.TextBoxFor(f => f.Director, new { @class = "form-control" })</li>
+					<li>Cena: @Html.TextBoxFor(f => f.Price, new { @class = "form-control"})</li>
+					<li>Opis: @Html.TextAreaFor(f => f.Desc, new { @class = "form-control" })</li>
+			</ul>
+			<button class="btn btn-primary" type="submit"> Zapisz zmiany </button>
+		</td>
+	</tr>
+</table>
+
+}

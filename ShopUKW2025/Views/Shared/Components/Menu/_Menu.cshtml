@@ -12,6 +12,14 @@
             <li>
                 <a class="nav-link btn btn-primary" href="@Url.Action("AllFilms", "Films")">Wszystkie</a>
             </li>
+
+            <li>
+                @using(Html.BeginForm("Search", "Films"))
+                {
+                    @Html.TextBox("tekst") 
+                    <button type="submit" class="btn btn-outline-secondary">Szukaj</button>
+                }
+            </li>
         </ul>
     </div>
 </nav>
