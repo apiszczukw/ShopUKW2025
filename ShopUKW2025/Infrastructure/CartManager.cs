@@ -52,5 +52,30 @@ namespace ShopUKW2025.Infrastructure
 
             return cart.Sum(c => c.Value * c.Quantity);
         }
+
+        public static int RemoveFromCart(ISession session, int id)
+        {
+            int ilosc = 0;
+            var cart = GetItems(session);
+
+            var thisFilm = cart.Find(i => i.Film.FilmId == id);
+
+            if (thisFilm == null) return 0;
+
+            if (thisFilm.Quantity > 1)
+            {
+                thisFilm.Quantity--;
+                ilosc = thisFilm.Quantity;
+            }
+            else
+            {
+                cart.Remove(thisFilm);
+            }
+
+            session.SetObjectAsJson(Keys.CartSessionKey, cart);
+
+            return ilosc;
+                
+            }
     }
 }

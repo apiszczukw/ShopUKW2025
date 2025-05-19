@@ -16,6 +16,7 @@
 				<li>Cena: @Model.Price zł</li>
 				<li>Opis: @Model.Desc</li>
 			</ul>
+			<button class="btn btn-secondary" onclick="window.location.href='@Url.Action("AddToCart", "Cart", new { filmId = Model.FilmId })'">Dodaj do koszyka 🛒</button>
 
 			<button class="btn btn-primary" onclick="window.location.href='@Url.Action("EditFilm", "Films", new { id = Model.FilmId })'">Edytuj</button>
 		</td>

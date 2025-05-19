@@ -1,8 +1,45 @@
 ﻿@model IEnumerable<CartItem>
 
+@section Scripts 
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		$(".trash").click(function ()
+		{
+			let idCartItem = $(this).data('id');
+			
+			if (idCartItem != '')
+			{
+				$.post("/Cart/RemoveFromCart", { id: idCartItem }, function (response)
+				{
+					if(response.itemQuantity == 0)
+					{
+						$("#cartItem-"+response.itemId).fadeOut("slow");
+					}
+				});
+			}
+		});
+	</script>
+}
+
 <table class="table">
+	<tr>
+		<th>Tytuł</th>
+		<th>Ilość</th>
+		<th>Cena jednostkowa</th>
+	</tr>
 	@foreach (var cartItem in Model)
 	{
-		
+		<tr id="cartItem-@cartItem.Film.FilmId">
+			<td>@cartItem.Film.Title</td>
+			<td id="itemQuantity-@cartItem.Film.FilmId">@cartItem.Quantity</td>
+			<td>@cartItem.Value zł</td>
+			<td><a class="trash" data-id="@cartItem.Film.FilmId">🗑️</a></td>
+		</tr>
 	}
 </table>
+
+<div>
+	<b>Do zapłaty: <span id="total">@ViewBag.Total</span> zł</b>
+</div>
