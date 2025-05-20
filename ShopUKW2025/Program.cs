@@ -1,12 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using ShopUKW2025.DAL;
+using ShopUKW2025.Models.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FilmsContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
+builder.Services.AddDbContext<IdentityAppContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
+
+
 builder.Services.AddSession();
+
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 4;
+});
 
 
 
@@ -27,6 +40,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
+
 app.UseSession();
 
 app.MapControllerRoute(
