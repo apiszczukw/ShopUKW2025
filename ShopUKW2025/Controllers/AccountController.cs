@@ -16,6 +16,24 @@ namespace ShopUKW2025.Controllers
             _signInManager = signInManager;
         }
 
+
+        public async Task<IActionResult> Login()
+        {
+            var result = await _signInManager.PasswordSignInAsync("TestUser", "Test", false, false);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.result = $"Nie udało się ({result})";
+            }
+
+            return View();
+        }
+
+
         public async Task<IActionResult> Register()
         {
 
@@ -32,14 +50,17 @@ namespace ShopUKW2025.Controllers
                 };
 
                 var result = await _userManager.CreateAsync(user, "Test");
+                ViewBag.result = "Zarejestrowano użytkownika\n" + result;
             }
 
             return View();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -22,7 +22,19 @@
             </li>
 
             <li>
-                <a href="@Url.Action("Register", "Account")">Rejestruj</a>
+                <a class="btn btn-secondary" href="@Url.Action("Register", "Account")">Rejestruj</a>
+            </li>
+            <li>
+                @if( User.Identity.IsAuthenticated )
+                {
+                    <a class="btn btn-danger" href="@Url.Action("Logout", "Account")">Wyloguj</a>
+
+                }
+                else
+                {
+                    <a class="btn btn-warning" href="@Url.Action("Login", "Account")">Zaloguj</a>
+
+                }
             </li>
         </ul>
     </div>
