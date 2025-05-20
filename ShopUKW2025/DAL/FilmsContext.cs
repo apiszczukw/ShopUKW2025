@@ -9,7 +9,7 @@ namespace ShopUKW2025.DAL
 
 		public DbSet<Category> Categories { get; set; }
 
-		public FilmsContext(DbContextOptions options) : base(options)
+		public FilmsContext(DbContextOptions<FilmsContext> options) : base(options)
 		{
 		}
 
