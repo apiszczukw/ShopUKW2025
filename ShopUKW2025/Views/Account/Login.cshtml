@@ -1,9 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model LoginViewModel
 
 <div>
     @ViewBag.result
 </div>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.UserName, "Podaj login:", new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @required = true })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Password, "Podaj hasło:", new { @class = "form-label" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = true })
+    </div>
+
+    <button type="submit"> Zaloguj </button>
+}

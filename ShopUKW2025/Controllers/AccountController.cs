@@ -16,10 +16,16 @@ namespace ShopUKW2025.Controllers
             _signInManager = signInManager;
         }
 
-
-        public async Task<IActionResult> Login()
+        [HttpGet]
+        public IActionResult Login()
         {
-            var result = await _signInManager.PasswordSignInAsync("TestUser", "Test", false, false);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
 
             if (result.Succeeded)
             {
@@ -30,30 +36,59 @@ namespace ShopUKW2025.Controllers
                 ViewBag.result = $"Nie udało się ({result})";
             }
 
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
             return View();
         }
 
 
-        public async Task<IActionResult> Register()
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-
-            var user = await _userManager.FindByNameAsync("TestUser");
-
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                user = new AppUser()
-                {
-                    UserName = "TestUser",
-                    Email = "testuser@ukw.edu.pl",
-                    FirstName = "Jan",
-                    LastName = "Kowalski"
-                };
+                var user = await _userManager.FindByNameAsync(model.UserName);
 
-                var result = await _userManager.CreateAsync(user, "Test");
-                ViewBag.result = "Zarejestrowano użytkownika\n" + result;
+                if (user == null)
+                {
+                    user = new AppUser()
+                    {
+                        UserName = model.UserName,
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+
+                    };
+
+                    var result = await _userManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        ViewBag.result = "Zarejestrowano użytkownika\n";
+
+                        await _signInManager.SignInAsync(user, false);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.result = "Rejestracja nieudana";
+
+                    }
+                }
+                else
+                {
+                    ViewBag.result = "Użytkownik o podanej nazwie już istnieje!";
+                }
+
             }
 
-            return View();
+            return View(model);
+
         }
 
         public async Task<IActionResult> Logout()

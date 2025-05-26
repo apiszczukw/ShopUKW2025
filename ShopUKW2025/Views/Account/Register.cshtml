@@ -1,10 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿@model RegisterViewModel
 
 <div> 
     @ViewBag.result
 </div>
+<div>
+    @Html.ValidationSummary()
+</div>
+
+@using(Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    <div class="mb-3">
+        @Html.LabelFor(m => m.FirstName, "Podaj imię:", new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.LastName, "Podaj nazwisko:", new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Email, "Podaj email:", new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @required = true })
+        <div>
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.UserName, "Podaj login:", new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @required = true })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Password, "Podaj hasło:", new { @class = "form-label" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = true })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.ConfirmPassword, "Powtórz hasło:", new { @class = "form-label" })
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @required = true })
+        <div>
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </div>
+    </div>
+
+    
+
+    <button type="submit"> Zarejestruj </button>
+}
+
+@section Scripts
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
